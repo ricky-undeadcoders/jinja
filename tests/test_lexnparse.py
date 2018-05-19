@@ -647,6 +647,6 @@ ${item} ## the rest of the stuff
 
 
     def test_ricky_lstrip(self, env):
-        env = Environment(lstrip_blocks=False, trim_blocks=False)
+        env = Environment(lstrip_blocks=True, trim_blocks=False)
         tmpl = env.from_string('''    {%+ if True %}\n    {%+ endif %}''')
         assert tmpl.render() == "    \n    "

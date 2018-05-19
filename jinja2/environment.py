@@ -763,6 +763,7 @@ class Environment(object):
         """Exception handling helper.  This is used internally to either raise
         rewritten exceptions or return a rendered traceback for the template.
         """
+        print('buy wy')
         global _make_traceback
         if exc_info is None:
             exc_info = sys.exc_info()
@@ -774,12 +775,22 @@ class Environment(object):
         if _make_traceback is None:
             from jinja2.debug import make_traceback as _make_traceback
         traceback = _make_traceback(exc_info, source_hint)
+        print('ended1')
+
         if rendered and self.exception_formatter is not None:
             return self.exception_formatter(traceback)
+        print('ended2')
+
         if self.exception_handler is not None:
             self.exception_handler(traceback)
+        print('ended3')
+
         exc_type, exc_value, tb = traceback.standard_exc_info
+        print('ended4')
+        print(exc_type, exc_value, tb)
         reraise(exc_type, exc_value, tb)
+
+        print('ended')
 
     def join_path(self, template, parent):
         """Join a template with the parent.  By default all the lookups are
@@ -877,8 +888,13 @@ class Environment(object):
         """Load a template from a string.  This parses the source given and
         returns a :class:`Template` object.
         """
+        if globals in locals():
+            globals.update({'source': source})
+        else:
+            globals = {'source': source}
         globals = self.make_globals(globals)
         cls = template_class or self.template_class
+        print('source', source)
         return cls.from_code(self, self.compile(source), globals, None)
 
     def make_globals(self, d):
@@ -1003,9 +1019,11 @@ class Template(object):
         This will return the rendered template as unicode string.
         """
         vars = dict(*args, **kwargs)
+        print('yo', vars)
         try:
             return concat(self.root_render_func(self.new_context(vars)))
         except Exception:
+            print('exceedingly excepted')
             exc_info = sys.exc_info()
         return self.environment.handle_exception(exc_info, True)
 

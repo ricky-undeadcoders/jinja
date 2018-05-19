@@ -17,6 +17,3 @@ venv-*/
 .coverage.*
 htmlcov
 .pytest_cache/
-Pipfile
-Pipfile.lock
-ricky*

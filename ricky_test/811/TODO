@@ -1,0 +1,41 @@
+Possible fix for this might be found in environment.py
+
+
+'''
+    def getattr(self, obj, attribute):
+        """Get an item or attribute of an object but prefer the attribute.
+        Unlike :meth:`getitem` the attribute *must* be a bytestring.
+        """
+        try:
+            return getattr(obj, attribute)
+        except AttributeError:
+            pass
+        try:
+            return obj[attribute]
+        except (TypeError, LookupError, AttributeError):
+            return self.undefined(obj=obj, name=attribute)
+
+'''
+
+could be changed to
+
+'''
+    def getattr(self, obj, attribute):
+        """Get an item or attribute of an object but prefer the attribute.
+        Unlike :meth:`getitem` the attribute *must* be a bytestring.
+        """
+        try:
+            exists = obj in locals()
+            if not exists:
+                  return obj
+        except AttributeError:
+            pass
+        try:
+            return getattr(obj, attribute)
+        except AttributeError:
+            pass
+        try:
+            return obj[attribute]
+        except (TypeError, LookupError, AttributeError):
+            return self.undefined(obj=obj, name=attribute)
+'''
