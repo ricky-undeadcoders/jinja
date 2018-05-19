@@ -441,10 +441,17 @@ class LoopContext(LoopContextBase):
             # the loop context was created (ie: iterating over a generator)
             # we have to convert the iterable into a sequence and use the
             # length of that + the number of iterations so far.
+            print('iter', self._iterator)
             iterable = tuple(self._iterator)
+            print('iter tup', iterable)
             self._iterator = iter(iterable)
+            print('self.iter', self._iterator)
+            print('index0', self.index0)
+            print('index', self.index)
             iterations_done = self.index0 + 2
+            print('len', len(iterable))
             self._length = len(iterable) + iterations_done
+            print('in length', self._length)
         return self._length
 
     def __iter__(self):
