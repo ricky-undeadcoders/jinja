@@ -1,0 +1,20 @@
+{% for i in [9]|reverse %}
+    {{ i }} - {{ loop.index }} - {{ loop.revindex }}<br>
+    len: {{ loop.length }}
+{% endfor %}
+
+<br>
+<br>
+<br>
+
+{% for i in range(10)|reverse %}
+    {{ loop.length }}
+    {{ i }} - {{ loop.index }} - {{ loop.revindex }}<br>
+{% endfor %}
+
+<br>
+<br>
+<br>
+{#{% for i in range(10)|reverse %}#}
+{#    {{ i }} - {{ loop.index }} - {{ loop.revindex }}<br>#}
+{#{% endfor %}#}
