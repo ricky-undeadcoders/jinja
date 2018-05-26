@@ -1,0 +1,22 @@
+I fixed this for macros by doing the following line.
+However if you divide by zero in just the template you end up with the same issue,
+so this problem needs some more investigation.
+
+runtime.py line 584:
+
+    def _invoke(self, arguments, autoescape):
+        """This method is being swapped out by the async implementation."""
+        print('yeee')
+        try:
+            rv = self._func(*arguments)
+        except:
+            from jinja2.debug import translate_exception
+            print(sys.exc_info())
+            translate_exception(sys.exc_info())
+            raise sys.exc_info()[1]
+        print('haw')
+        if autoescape:
+            rv = Markup(rv)
+        return rv
+
+

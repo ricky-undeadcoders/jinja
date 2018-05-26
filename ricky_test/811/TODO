@@ -1,5 +1,5 @@
 Possible fix for this might be found in environment.py
-
+Also see issue 854; same function problem.
 
 '''
     def getattr(self, obj, attribute):
@@ -39,3 +39,5 @@ could be changed to
         except (TypeError, LookupError, AttributeError):
             return self.undefined(obj=obj, name=attribute)
 '''
+
+

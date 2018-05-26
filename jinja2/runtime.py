@@ -583,7 +583,15 @@ class Macro(object):
 
     def _invoke(self, arguments, autoescape):
         """This method is being swapped out by the async implementation."""
-        rv = self._func(*arguments)
+        print('yeee')
+        try:
+            rv = self._func(*arguments)
+        except:
+            from jinja2.debug import translate_exception
+            print(sys.exc_info())
+            translate_exception(sys.exc_info())
+            raise sys.exc_info()[1]
+        print('haw')
         if autoescape:
             rv = Markup(rv)
         return rv
